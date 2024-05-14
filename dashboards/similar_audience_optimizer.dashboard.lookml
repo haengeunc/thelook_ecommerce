@@ -2,16 +2,15 @@
   title: Similar Audience Optimizer
   layout: newspaper
   preferred_viewer: dashboards-next
-  query_timezone: user_timezone
   embed_style:
     background_color: "#f6f8fa"
     show_title: false
     title_color: "#3a4245"
     show_filters_bar: false
     tile_text_color: "#3a4245"
-    tile_separator_color: "#faf3f3"
-    tile_border_radius: 5
-    show_tile_shadow: false
+    # tile_separator_color: "#faf3f3"
+    # tile_border_radius: 5
+    # show_tile_shadow: false
     text_tile_text_color: "#556d7a"
   elements:
   - title: Total Orders
@@ -23,7 +22,6 @@
     filters: {}
     sorts: [order_items.order_count desc]
     limit: 500
-    query_timezone: America/Los_Angeles
     font_size: medium
     text_color: black
     hidden_fields: []
@@ -45,7 +43,6 @@
     filters: {}
     sorts: [users.count desc]
     limit: 500
-    query_timezone: America/Los_Angeles
     font_size: medium
     text_color: black
     hidden_fields: []
@@ -71,7 +68,6 @@
     sorts: [order_items.average_sale_price desc]
     limit: 500
     column_limit: 50
-    query_timezone: America/Los_Angeles
     font_size: medium
     text_color: black
     hidden_fields: []
@@ -103,7 +99,6 @@
     dynamic_fields: [{dimension: device_type, label: Device Type, expression: 'if(${events.os}="Macintosh",
           "iOS", if(${events.os}="Windows","Desktop","Android"))', value_format: !!null '',
         value_format_name: !!null '', _kind_hint: dimension, _type_hint: string}]
-    query_timezone: America/Los_Angeles
     show_value_labels: true
     font_size: 12
     colors: ["#64518A", "#8D7FB9", "#EA8A2F", "#F2B431", "#2DA5DE", "#57BEBE", "#7F7977",
@@ -154,7 +149,6 @@
           to Cart -> Checkout Conversion, expression: 'min(list(max(list((${sessions.cart_to_checkout_conversion}-sum(${sessions.cart_to_checkout_conversion})/count(${sessions.cart_to_checkout_conversion}))*20+${sessions.cart_to_checkout_conversion},
           0.25)),0.95))', value_format: !!null '', value_format_name: percent_0, _kind_hint: measure,
         _type_hint: number}]
-    query_timezone: America/Los_Angeles
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -235,7 +229,6 @@
       order_items.created_date: 90 days
     sorts: [order_items.total_sale_price desc]
     limit: 500
-    query_timezone: America/Los_Angeles
     x_axis_gridlines: false
     y_axis_gridlines: false
     show_view_names: false
@@ -305,7 +298,6 @@
     sorts: [order_items.count desc]
     limit: 100
     column_limit: 50
-    query_timezone: America/Los_Angeles
     show_view_names: false
     show_row_numbers: true
     transpose: false
@@ -352,7 +344,6 @@
     dynamic_fields: [{dimension: is_same_brand, label: Is Same Brand, expression: "${product_a.brand}\
           \ = ${product_b.brand}", value_format: !!null '', value_format_name: !!null '',
         _kind_hint: dimension, _type_hint: yesno}]
-    query_timezone: America/Los_Angeles
     show_view_names: true
     show_row_numbers: true
     transpose: false
@@ -428,7 +419,6 @@
       order_items.months_since_signup: "<=18"
     sorts: [order_items.months_since_signup]
     limit: 500
-    query_timezone: America/Los_Angeles
     x_axis_gridlines: false
     y_axis_gridlines: false
     show_view_names: false

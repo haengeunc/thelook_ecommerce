@@ -1,7 +1,6 @@
 view: sessions {
   derived_table: {
     datagroup_trigger: ecommerce_etl_modified
-    materialized_view: yes
     sql:
       -- session rollup table
       SELECT
@@ -9,14 +8,14 @@ view: sessions {
         , CAST(MIN(created_at) AS TIMESTAMP) AS session_start
         , CAST(MAX(created_at) AS TIMESTAMP) AS session_end
         , COUNT(*) AS number_of_events_in_session
-        , SUM(CASE WHEN event_type IN ('Category','Brand') THEN 1 ELSE NULL END) AS browse_events
-        , SUM(CASE WHEN event_type = 'Product' THEN 1 ELSE NULL END) AS product_events
-        , SUM(CASE WHEN event_type = 'Cart' THEN 1 ELSE NULL END) AS cart_events
-        , SUM(CASE WHEN event_type = 'Purchase' THEN 1 ELSE NULL end) AS purchase_events
+        , SUM(CASE WHEN event_type IN ('home','department') THEN 1 ELSE NULL END) AS browse_events
+        , SUM(CASE WHEN event_type = 'product' THEN 1 ELSE NULL END) AS product_events
+        , SUM(CASE WHEN event_type = 'cart' THEN 1 ELSE NULL END) AS cart_events
+        , SUM(CASE WHEN event_type = 'purchase' THEN 1 ELSE NULL end) AS purchase_events
         , CAST(MAX(user_id) AS INT64)  AS session_user_id
         , MIN(id) AS landing_event_id
         , MAX(id) AS bounce_event_id
-      FROM looker-private-demo.ecomm.events
+      FROM @{bigquery_project}.@{bigquery_dataset}.events
       GROUP BY session_id
        ;;
   }

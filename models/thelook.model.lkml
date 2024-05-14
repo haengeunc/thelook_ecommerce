@@ -1,4 +1,4 @@
-connection: "looker-private-demo"
+connection: "sample_bigquery_connection"
 label: "eCommerce"
 include: "/queries/queries*.view" # includes all queries refinements
 include: "/views/**/*.view" # include all the views
@@ -7,17 +7,13 @@ include: "/dashboards/*.dashboard.lookml" # include all the views
 
 ############ Model Configuration #############
 
-# datagroup: ecommerce_etl {
-#   sql_trigger: SELECT max(created_at) FROM ecomm.events ;;
-#   max_cache_age: "24 hours"
-# }
-
 datagroup: ecommerce_etl_modified {
-  sql_trigger: SELECT MAX(DATE(created_at)) FROM `looker-private-demo.ecomm.events` ;;
+  sql_trigger: SELECT MAX(DATE(created_at)) FROM `@{bigquery_project}.@{bigquery_dataset}.events` ;;
   max_cache_age: "24 hours"
 }
 
 persist_with: ecommerce_etl_modified
+
 ############ Base Explores #############
 
 
@@ -75,6 +71,7 @@ explore: order_items {
 
   join: discounts {
     view_label: "Discounts"
+    relationship: many_to_one
     type: inner
     sql_on: ${products.id} = ${discounts.product_id} ;;
   }
@@ -325,6 +322,7 @@ explore: kitten_order_items {
 ######### Cohort Analysis BQML #########
 explore: ecomm_training_info {
 label: "E-Comm Cohort Analysis Training"
+hidden: yes
   join: cluster_info {
     relationship: many_to_one
     sql: LEFT JOIN UNNEST(ecomm_training_info.cluster_info) as cluster_info ;;
@@ -341,10 +339,13 @@ label: "E-Comm Cohort Analysis Training"
   }
 }
 
-explore: kmeans_model5 {}
+explore: kmeans_model5 {
+  hidden: yes
+}
 
 
 explore: ecomm_predict {
+  hidden: yes
   label: "(8) Cohort Analysis"
   fields: [ALL_FIELDS*,-centroid_id, -user_id]
   join: users {

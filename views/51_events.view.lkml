@@ -1,5 +1,5 @@
 view: events {
-  sql_table_name: looker-private-demo.ecomm.events ;;
+  sql_table_name: @{bigquery_project}.@{bigquery_dataset}.events ;;
 
   dimension: event_id {
     label: "Event ID"

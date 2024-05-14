@@ -79,7 +79,6 @@ view: customer_profile {
 
 view: promo_email {
   derived_table: {
-    #datagroup_trigger: daily
     sql: SELECT
         ml_generate_text_result['predictions'][0]['content'] AS generated_text,
         ml_generate_text_result['predictions'][0]['safetyAttributes']
@@ -87,7 +86,7 @@ view: promo_email {
         * EXCEPT (ml_generate_text_result)
       FROM
         ML.GENERATE_TEXT(
-          MODEL  `looker-private-demo.ecomm.email_promotion`,
+          MODEL  `@{bigquery_project}.@{bigquery_dataset}.email_promotion`,
           (
             SELECT
 

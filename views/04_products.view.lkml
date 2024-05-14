@@ -1,5 +1,5 @@
 view: products {
-  sql_table_name: looker-private-demo.ecomm.products ;;
+  sql_table_name: @{bigquery_project}.@{bigquery_dataset}.products ;;
   view_label: "Products"
   ### DIMENSIONS ###
 

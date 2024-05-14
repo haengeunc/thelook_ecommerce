@@ -1,5 +1,5 @@
 view: discounts {
-  sql_table_name: looker-private-demo.ecomm.discounts;;
+  sql_table_name: @{bigquery_project}.@{bigquery_dataset}.discounts;;
 
   measure: count {
     type: count

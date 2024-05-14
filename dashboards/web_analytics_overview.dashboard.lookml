@@ -2,7 +2,6 @@
   title: Web Analytics Overview
   layout: newspaper
   preferred_viewer: dashboards-next
-  query_timezone: user_timezone
   preferred_slug: 2VgEQ4QWmU1qoZFiFsSd3K
   embed_style:
     background_color: ''
@@ -24,7 +23,6 @@
     limit: 500
     column_limit: 50
     dynamic_fields: [{table_calculation: change, label: Change, expression: "${events.unique_visitors}-offset(${events.unique_visitors},1)"}]
-    query_timezone: America/Los_Angeles
     font_size: medium
     value_format: ''
     text_color: black
@@ -73,7 +71,6 @@
     filters: {}
     sorts: [orders.total_profit_k desc, order_items.total_sale_price desc]
     limit: 500
-    query_timezone: America/Los_Angeles
     font_size: medium
     value_format: "$#,###"
     text_color: black
@@ -100,7 +97,6 @@
     sorts: [events.count desc]
     limit: 50
     column_limit: 50
-    query_timezone: America/Los_Angeles
     value_labels: legend
     label_type: labPer
     colors: ["#635189", "#8D7FB9", "#EA8A2F", "#e9b404", "#49cec1", "#a2dcf3", "#1ea8df",
@@ -245,7 +241,6 @@
       product_viewed.brand: "-NULL"
     sorts: [events.count desc]
     limit: 10
-    query_timezone: America/Los_Angeles
     show_view_names: false
     show_row_numbers: true
     show_value_labels: true
@@ -293,7 +288,6 @@
     sorts: [sessions.all_sessions desc]
     limit: 500
     column_limit: 50
-    query_timezone: America/Los_Angeles
     x_axis_gridlines: false
     y_axis_gridlines: false
     show_view_names: false
@@ -358,7 +352,6 @@
     filters: {}
     sorts: [events.count desc]
     limit: 1000
-    query_timezone: America/Los_Angeles
     show_view_names: true
     stacking: ''
     show_value_labels: false
@@ -416,7 +409,6 @@
     sorts: [sessions.session_start_date]
     limit: 500
     column_limit: 50
-    query_timezone: America/Los_Angeles
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -468,7 +460,6 @@
     sorts: [sessions.all_sessions desc, sessions.includes_purchase]
     limit: 500
     column_limit: 50
-    query_timezone: America/Los_Angeles
     show_view_names: true
     colors: ["#5245ed", "#a2dcf3"]
     show_row_numbers: true
