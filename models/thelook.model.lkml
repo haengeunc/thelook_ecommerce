@@ -16,6 +16,14 @@ persist_with: ecommerce_etl_modified
 
 ############ Base Explores #############
 
+explore: users {
+  hidden: yes
+  join: user_order_facts {
+    type: left_outer
+    sql_on: ${users.id} = ${user_order_facts.user_id} ;;
+    relationship: one_to_one
+  }
+}
 
 explore: order_items {
   label: "(1) Orders, Items and Users"
@@ -51,7 +59,7 @@ explore: order_items {
   join: user_order_facts {
     view_label: "Users"
     type: left_outer
-    relationship: many_to_one
+    relationship: one_to_one
     sql_on: ${user_order_facts.user_id} = ${order_items.user_id} ;;
   }
 
@@ -200,7 +208,7 @@ explore: sessions {
 
   join: user_order_facts {
     type: left_outer
-    relationship: many_to_one
+    relationship: one_to_one
     sql_on: ${user_order_facts.user_id} = ${users.id} ;;
     view_label: "Users"
   }
