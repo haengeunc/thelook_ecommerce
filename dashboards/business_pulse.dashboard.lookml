@@ -474,11 +474,10 @@
     model: thelook
     explore: order_items
     type: looker_map
-    fields: [users.approx_location, users.gender, order_items.order_count, users.count,
-      order_items.total_sale_price, order_items.average_spend_per_user, users.country]
+    fields: [users.approx_location, users.gender, order_items.average_spend_per_user]
     pivots: [users.gender]
     filters: {}
-    sorts: [users.gender 0, order_items.total_sale_price desc 0]
+    sorts: [users.gender 0]
     limit: 500
     column_limit: 50
     map_plot_mode: points
@@ -527,7 +526,7 @@
     ordering: none
     show_null_labels: false
     loading: false
-    hidden_fields: [orders.count, users.count, order_items.total_sale_price, order_items.order_count]
+    hidden_fields: []
     map: usa
     map_projection: ''
     quantize_colors: false
