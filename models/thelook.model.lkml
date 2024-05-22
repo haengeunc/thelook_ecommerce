@@ -1,11 +1,7 @@
 connection: "sample_bigquery_connection"
 label: "eCommerce"
-include: "/queries/queries*.view" # includes all queries refinements
 include: "/views/**/*.view" # include all the views
-include: "/gen_ai/**/*.view" # include all the views
 include: "/dashboards/*.dashboard.lookml" # include all the views
-
-############ Model Configuration #############
 
 datagroup: ecommerce_etl_modified {
   sql_trigger: SELECT MAX(DATE(created_at)) FROM `@{bigquery_project}.@{bigquery_dataset}.events` ;;
@@ -13,8 +9,6 @@ datagroup: ecommerce_etl_modified {
 }
 
 persist_with: ecommerce_etl_modified
-
-############ Base Explores #############
 
 explore: users {
   hidden: yes
@@ -36,15 +30,8 @@ explore: order_items {
     sql_on: ${order_facts.order_id} = ${order_items.order_id} ;;
   }
 
-  join: promo_email {
-    type: left_outer
-    sql_on: ${promo_email.id} = ${users.id} ;;
-    relationship: one_to_one
-  }
-
   join: inventory_items {
     view_label: "Inventory Items"
-    #Left Join only brings in items that have been sold as order_item
     type: full_outer
     relationship: one_to_one
     sql_on: ${inventory_items.id} = ${order_items.inventory_item_id} ;;
@@ -77,13 +64,6 @@ explore: order_items {
     sql_on: ${order_items.order_id} = ${repeat_purchase_facts.order_id} ;;
   }
 
-  join: discounts {
-    view_label: "Discounts"
-    relationship: many_to_one
-    type: inner
-    sql_on: ${products.id} = ${discounts.product_id} ;;
-  }
-
   join: distribution_centers {
     view_label: "Distribution Center"
     type: left_outer
@@ -92,16 +72,8 @@ explore: order_items {
   }
 }
 
-
-
-
-
-
-#########  Event Data Explores #########
-
 explore: events {
   label: "(2) Web Event Data"
-  # sql_always_where: ${product_viewed.brand} in ({{ _user_attributes['brand'] }}) ;;
 
   join: sessions {
     view_label: "Sessions"
@@ -153,7 +125,6 @@ explore: events {
 
 explore: sessions {
   label: "(3) Web Session Data"
-  # sql_always_where: ${product_viewed.brand} in ({{ _user_attributes['brand'] }}) ;;
 
   join: events {
     view_label: "Events"
@@ -202,9 +173,6 @@ explore: sessions {
     view_label: "Users"
   }
 }
-
-
-#########  Advanced Extensions #########
 
 explore: affinity {
   label: "(4) Affinity Analysis"
@@ -301,83 +269,5 @@ explore: inventory_snapshot {
     type: left_outer
     sql_on: ${products.distribution_center_id}=${distribution_centers.id} ;;
     relationship: many_to_one
-  }
-}
-
-
-explore: kitten_order_items {
-  label: "Order Items (Kittens)"
-  hidden: yes
-  extends: [order_items]
-
-  join: users {
-    view_label: "Kittens"
-    from: kitten_users
-  }
-}
-
-######### Cohort Analysis BQML #########
-explore: ecomm_training_info {
-label: "E-Comm Cohort Analysis Training"
-hidden: yes
-  join: cluster_info {
-    relationship: many_to_one
-    sql: LEFT JOIN UNNEST(ecomm_training_info.cluster_info) as cluster_info ;;
-  }
-  join: ecomm_model_eval {
-    view_label: "E-Comm Model Evaluation"
-    relationship: many_to_one
-    sql_on: ${ecomm_model_eval.clusters_num} = ${ecomm_training_info.clusters_num} ;;
-  }
-  join: ecomm_feature_info {
-    view_label: "E-Comm Model Feature Info"
-    relationship: many_to_one
-    sql_on: ${ecomm_training_info.clusters_num} = ${ecomm_feature_info.clusters_num} ;;
-  }
-}
-
-explore: kmeans_model5 {
-  hidden: yes
-}
-
-
-explore: ecomm_predict {
-  hidden: yes
-  label: "(8) Cohort Analysis"
-  fields: [ALL_FIELDS*,-centroid_id, -user_id]
-  join: users {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${ecomm_predict.user_id} = ${users.id} ;;
-  }
-  join: order_items {
-    view_label: "Order Items"
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${users.id} = ${order_items.user_id} ;;
-  }
-  join: inventory_items {
-    view_label: "Inventory Items"
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${inventory_items.id} = ${order_items.inventory_item_id} ;;
-  }
-  join: products {
-    view_label: "Products"
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${products.id} = ${inventory_items.product_id}  ;;
-  }
-  join: repeat_purchase_facts {
-    view_label: "Repeat Purchase Facts"
-    relationship: many_to_one
-    type: full_outer
-    sql_on: ${order_items.order_id} = ${repeat_purchase_facts.order_id} ;;
-  }
-  join: order_facts {
-    type: left_outer
-    view_label: "Orders"
-    relationship: many_to_one
-    sql_on: ${order_facts.order_id} = ${order_items.order_id} ;;
   }
 }
