@@ -4,7 +4,6 @@ view: trailing_sales_snapshot {
     sql: with calendar as
       (select distinct created_at as snapshot_date
       from @{bigquery_project}.@{bigquery_dataset}.inventory_items
-      -- where dateadd('day',90,created_at)>=current_date
       )
 
       select
@@ -17,15 +16,9 @@ view: trailing_sales_snapshot {
       join calendar
         on date(order_items.created_at) <= date_add(calendar.snapshot_date, interval 28 day)
         and date(order_items.created_at) >= calendar.snapshot_date
-      -- where dateadd('day',90,calendar.snapshot_date)>=current_date
       group by 1,2
     ;;
   }
-
-#   measure: count {
-#     type: count
-#     drill_fields: [detail*]
-#   }
 
   dimension: product_id {
     label: "Product ID"
