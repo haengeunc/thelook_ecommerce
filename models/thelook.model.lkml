@@ -1,7 +1,7 @@
 connection: "sample_bigquery_connection"
 label: "eCommerce"
-include: "/views/modeled/*.view" # include all the views
-include: "/dashboards/*.dashboard.lookml" # include all the views
+include: "/views/modeled/*.view" # include modeled views
+include: "/dashboards/*.dashboard.lookml"
 
 datagroup: thelook_etl {
   sql_trigger: SELECT MAX(DATE(created_at)) FROM `@{bigquery_project}.@{bigquery_dataset}.events` ;;

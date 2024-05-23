@@ -2,7 +2,7 @@ connection: "sample_bigquery_connection"
 
 label: "eCommerce Demo"
 
-include: "/views/demo/*.view" # include all the views
+include: "/views/demo/*.view" # include demo views
 
 explore: order_items {
   label: "Orders, Items and Users"
