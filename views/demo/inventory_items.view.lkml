@@ -28,6 +28,7 @@ view: inventory_items {
     sql: ${TABLE}.product_department ;;
   }
   dimension: product_distribution_center_id {
+    hidden: yes
     type: number
     sql: ${TABLE}.product_distribution_center_id ;;
   }

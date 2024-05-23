@@ -24,10 +24,4 @@ explore: order_items {
     relationship: many_to_one
     sql_on: ${products.id} = ${inventory_items.product_id} ;;
   }
-
-  join: distribution_centers {
-    type: left_outer
-    sql_on: ${distribution_centers.id} = ${inventory_items.product_distribution_center_id} ;;
-    relationship: many_to_one
-  }
 }
