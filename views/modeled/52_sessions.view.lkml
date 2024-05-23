@@ -1,6 +1,6 @@
 view: sessions {
   derived_table: {
-    datagroup_trigger: ecommerce_etl_modified
+    datagroup_trigger: thelook_etl
     sql:
       -- session rollup table
       SELECT

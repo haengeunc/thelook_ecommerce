@@ -1,14 +1,14 @@
 connection: "sample_bigquery_connection"
 label: "eCommerce"
-include: "/views/**/*.view" # include all the views
+include: "/views/modeled/*.view" # include all the views
 include: "/dashboards/*.dashboard.lookml" # include all the views
 
-datagroup: ecommerce_etl_modified {
+datagroup: thelook_etl {
   sql_trigger: SELECT MAX(DATE(created_at)) FROM `@{bigquery_project}.@{bigquery_dataset}.events` ;;
   max_cache_age: "24 hours"
 }
 
-persist_with: ecommerce_etl_modified
+persist_with: thelook_etl
 
 explore: users {
   hidden: yes

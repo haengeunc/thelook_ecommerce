@@ -13,7 +13,7 @@ view: user_order_facts {
       FROM @{bigquery_project}.@{bigquery_dataset}.order_items
       GROUP BY user_id
     ;;
-    datagroup_trigger: ecommerce_etl_modified
+    datagroup_trigger: thelook_etl
   }
 
   dimension: user_id {

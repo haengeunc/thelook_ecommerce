@@ -1,6 +1,6 @@
 view: trailing_sales_snapshot {
   derived_table: {
-    datagroup_trigger: ecommerce_etl_modified
+    datagroup_trigger: thelook_etl
     sql: with calendar as
       (select distinct created_at as snapshot_date
       from @{bigquery_project}.@{bigquery_dataset}.inventory_items
