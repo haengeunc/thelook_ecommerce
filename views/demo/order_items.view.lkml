@@ -55,7 +55,13 @@ view: order_items {
     type: count
     drill_fields: [detail*]
   }
-
+  measure: total_sales {
+    description: "Total revenue from order items"
+    type: sum
+    value_format_name: usd
+    sql: ${sale_price} ;;
+    drill_fields: [detail*]
+  }
   set: detail {
     fields: [
   id,
