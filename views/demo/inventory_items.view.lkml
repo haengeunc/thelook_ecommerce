@@ -49,9 +49,8 @@ view: inventory_items {
     type: string
     sql: ${TABLE}.product_sku ;;
   }
-  dimension_group: sold {
-    type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+  dimension: sold_date {
+    type: date
     sql: ${TABLE}.sold_at ;;
   }
   measure: count {
