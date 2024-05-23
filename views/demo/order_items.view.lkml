@@ -7,14 +7,12 @@ view: order_items {
     type: number
     sql: ${TABLE}.id ;;
   }
-  dimension_group: created {
-    type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+  dimension: created_date {
+    type: date
     sql: ${TABLE}.created_at ;;
   }
-  dimension_group: delivered {
-    type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+  dimension: delivered_date {
+    type: date
     sql: ${TABLE}.delivered_at ;;
   }
   dimension: inventory_item_id {
@@ -32,18 +30,16 @@ view: order_items {
     hidden: yes
     sql: ${TABLE}.product_id ;;
   }
-  dimension_group: returned {
-    type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+  dimension: returned_date {
+    type: date
     sql: ${TABLE}.returned_at ;;
   }
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
   }
-  dimension_group: shipped {
-    type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+  dimension: shipped_date {
+    type: date
     sql: ${TABLE}.shipped_at ;;
   }
   dimension: status {

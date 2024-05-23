@@ -20,9 +20,8 @@ view: users {
     map_layer_name: countries
     sql: ${TABLE}.country ;;
   }
-  dimension_group: created {
-    type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+  dimension: created_date {
+    type: date
     sql: ${TABLE}.created_at ;;
   }
   dimension: email {
