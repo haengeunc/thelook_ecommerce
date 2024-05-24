@@ -5,10 +5,7 @@ view: wide_table {
     explore_source: order_items {
       column: inventory_items_cost { field: inventory_items.cost }
       column: order_items_created_date { field: order_items.created_date }
-      column: order_items_delivered_date { field: order_items.delivered_date }
-      column: order_items_returned_date { field: order_items.returned_date }
       column: order_items_sale_price { field: order_items.sale_price }
-      column: order_items_shipped_date { field: order_items.shipped_date }
       column: order_items_status { field: order_items.status }
       column: products_brand { field: products.brand }
       column: products_category { field: products.category }
@@ -30,6 +27,35 @@ view: wide_table {
       column: users_state { field: users.state }
       column: users_street_address { field: users.street_address }
       column: users_traffic_source { field: users.traffic_source }
+      filters: {
+        field: order_items.created_date
+        value: "-NULL"
+      }
     }
   }
+  dimension: inventory_items_cost {type: number}
+  dimension: order_items_created_date {type: date}
+  dimension: order_items_sale_price {type: number}
+  dimension: order_items_status {}
+  dimension: products_brand {}
+  dimension: products_category {}
+  dimension: products_cost {type: number}
+  dimension: products_department {}
+  dimension: products_name {}
+  dimension: products_retail_price {type: number}
+  dimension: products_sku {}
+  dimension: users_age {type: number}
+  dimension: users_city {}
+  dimension: users_country {}
+  dimension: users_created_date {type: date}
+  dimension: users_email {}
+  dimension: users_first_name {}
+  dimension: users_gender {}
+  dimension: users_users_id {}
+  dimension: users_last_name {}
+  dimension: users_postal_code {}
+  dimension: users_state {}
+  dimension: users_street_address {}
+  dimension: users_traffic_source {}
+  measure: count {type: count}
 }
