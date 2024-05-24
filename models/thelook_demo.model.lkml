@@ -4,6 +4,10 @@ label: "eCommerce [DEMO]"
 
 include: "/views/demo/*.view" # include demo views
 
+explore: wide_table {
+  hidden: yes
+}
+
 explore: order_items {
   label: "Orders, Items and Users"
   view_name: order_items

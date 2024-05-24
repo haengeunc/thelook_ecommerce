@@ -1,7 +1,7 @@
 view: repeat_purchase_facts {
   view_label: "Repeat Purchase Facts"
   derived_table: {
-    datagroup_trigger: thelook_etl
+    datagroup_trigger: thelook_prod_etl
     sql: SELECT
       order_items.order_id as order_id
       , order_items.created_at

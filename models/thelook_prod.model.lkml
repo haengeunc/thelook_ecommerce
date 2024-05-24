@@ -3,12 +3,12 @@ label: "eCommerce [PROD]"
 include: "/views/modeled/*.view" # include modeled views
 include: "/dashboards/*.dashboard.lookml"
 
-datagroup: thelook_etl {
+datagroup: thelook_prod_etl {
   sql_trigger: SELECT MAX(DATE(created_at)) FROM `@{bigquery_project}.@{bigquery_dataset}.events` ;;
   max_cache_age: "24 hours"
 }
 
-persist_with: thelook_etl
+persist_with: thelook_prod_etl
 
 explore: users {
   hidden: yes
