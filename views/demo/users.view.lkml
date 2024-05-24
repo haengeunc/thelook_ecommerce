@@ -68,7 +68,6 @@ view: users {
     type: string
     sql: ${TABLE}.user_geom ;;
   }
-
   measure: count {
     type: count
     drill_fields: [detail*]

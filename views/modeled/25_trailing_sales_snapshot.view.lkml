@@ -14,8 +14,8 @@ view: trailing_sales_snapshot {
       join @{bigquery_project}.@{bigquery_dataset}.inventory_items
         on order_items.inventory_item_id = inventory_items.id
       join calendar
-        on date(order_items.created_at) <= date_add(calendar.snapshot_date, interval 28 day)
-        and date(order_items.created_at) >= calendar.snapshot_date
+        on date(order_items.created_at) <= date(date_add(calendar.snapshot_date, interval 28 day))
+        and date(order_items.created_at) >= date(calendar.snapshot_date)
       group by 1,2
     ;;
   }

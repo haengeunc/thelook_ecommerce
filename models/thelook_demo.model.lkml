@@ -18,7 +18,6 @@ explore: order_items {
     relationship: many_to_one
     sql_on: ${order_items.user_id} = ${users.id} ;;
   }
-
   join: products {
     type: left_outer
     relationship: many_to_one

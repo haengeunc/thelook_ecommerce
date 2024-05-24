@@ -62,6 +62,7 @@ view: order_items {
     sql: ${sale_price} ;;
     drill_fields: [detail*]
   }
+
   set: detail {
     fields: [
   id,
