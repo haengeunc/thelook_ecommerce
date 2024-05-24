@@ -1,6 +1,6 @@
 connection: "sample_bigquery_connection"
 
-label: "eCommerce Demo"
+label: "eCommerce [DEMO]"
 
 include: "/views/demo/*.view" # include demo views
 
