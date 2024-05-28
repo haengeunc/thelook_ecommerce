@@ -9,7 +9,7 @@ view: order_items {
   }
   dimension_group: created {
     type: time
-    timeframes: [date,month_name,year]
+    timeframes: [date,month_num,year]
     sql: ${TABLE}.created_at ;;
   }
   dimension: delivered_date {
