@@ -7,8 +7,9 @@ view: order_items {
     type: number
     sql: ${TABLE}.id ;;
   }
-  dimension: created_date {
-    type: date
+  dimension_group: created {
+    type: time
+    timeframes: [date,month_name,year]
     sql: ${TABLE}.created_at ;;
   }
   dimension: delivered_date {
