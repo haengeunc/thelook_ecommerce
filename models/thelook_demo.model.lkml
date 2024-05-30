@@ -7,6 +7,7 @@ include: "/views/demo/*.view" # include demo views
 # for LS connector
 explore: wide_table {
   hidden: yes
+  label: "Wide Table"
 }
 
 explore: order_items {
