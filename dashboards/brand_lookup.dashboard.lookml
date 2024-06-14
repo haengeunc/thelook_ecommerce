@@ -80,12 +80,12 @@
     col: 4
     width: 4
     height: 3
-  - title: Brand Traffic by Source, OS
-    name: Brand Traffic by Source, OS
+  - title: Brand Traffic by Source, Browser
+    name: Brand Traffic by Source, Browser
     model: thelook_prod
     explore: events
     type: looker_donut_multiples
-    fields: [users.traffic_source, events.os, events.count]
+    fields: [users.traffic_source, events.browser, events.count]
     pivots: [users.traffic_source]
     filters:
       users.traffic_source: "-NULL"
