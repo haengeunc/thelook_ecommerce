@@ -473,40 +473,42 @@
     name: Highest Spending Users
     model: thelook_prod
     explore: order_items
-    type: looker_map
-    fields: [users.approx_location, users.gender, order_items.average_spend_per_user]
+    type: looker_google_map
+    fields: [users.approx_location, users.gender, order_items.total_sale_price, order_items.average_spend_per_user]
     pivots: [users.gender]
-    filters: {}
-    sorts: [users.gender 0]
+    sorts: [users.gender 0, order_items.total_sale_price desc 0]
     limit: 500
     column_limit: 50
+    hidden_fields: [orders.count, order_items.total_sale_price]
+    hidden_points_if_no: []
+    series_labels: {}
+    show_view_names: false
     map_plot_mode: points
     heatmap_gridlines: true
     heatmap_gridlines_empty: false
     heatmap_opacity: 0.5
     show_region_field: true
     draw_map_labels_above_data: true
-    map_tile_provider: light
+    map_tile_provider: traffic_day
     map_position: custom
-    map_scale_indicator: 'off'
-    map_pannable: true
-    map_zoomable: true
-    map_marker_type: circle
-    map_marker_icon_name: default
-    map_marker_radius_mode: proportional_value
-    map_marker_units: pixels
-    map_marker_proportional_scale_type: linear
-    map_marker_color_mode: value
-    show_view_names: false
-    show_legend: true
-    quantize_map_value_colors: false
-    reverse_map_value_colors: false
     map_latitude: 37.57941251343841
     map_longitude: -99.31640625000001
     map_zoom: 4
+    map_scale_indicator: 'off'
+    map_pannable: true
+    map_zoomable: true
+    map_marker_type: circle_and_icon
+    map_marker_icon_name: person
+    map_marker_radius_mode: proportional_value
+    map_marker_units: pixels
     map_marker_radius_max: 15
+    map_marker_proportional_scale_type: linear
+    map_marker_color_mode: value
     map_marker_color: ["#4285F4", "#EA4335", "#FBBC04", "#34A853"]
+    show_legend: true
     map_value_colors: [white, purple]
+    quantize_map_value_colors: false
+    reverse_map_value_colors: false
     map_value_scale_clamp_min: 0
     map_value_scale_clamp_max: 200
     stacking: ''
@@ -526,7 +528,6 @@
     ordering: none
     show_null_labels: false
     loading: false
-    hidden_fields: []
     map: usa
     map_projection: ''
     quantize_colors: false
@@ -537,10 +538,11 @@
     outer_border_width: 2
     empty_color: ''
     y_axes: []
-    defaults_version: 1
+    defaults_version: 0
     note_state: collapsed
     note_display: hover
     note_text: Bubble size corresponds to average user spend
+    hidden_pivots: {}
     listen:
       State: users.state
       City: users.city
@@ -955,32 +957,6 @@
     width: 24
     height: 2
   filters:
-  - name: State
-    title: State
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: advanced
-      display: popover
-    model: thelook_prod
-    explore: order_items
-    listens_to_filters: [Country]
-    field: users.state
-  - name: City
-    title: City
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: false
-    required: false
-    ui_config:
-      type: advanced
-      display: popover
-    model: thelook_prod
-    explore: order_items
-    listens_to_filters: [State, Country]
-    field: users.city
   - name: Traffic Source
     title: Traffic Source
     type: field_filter
@@ -1034,8 +1010,34 @@
     required: false
     ui_config:
       type: button_group
-      display: inline
+      display: popover
     model: thelook_prod
     explore: order_items
     listens_to_filters: []
     field: users.country
+  - name: State
+    title: State
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: advanced
+      display: popover
+    model: thelook_prod
+    explore: order_items
+    listens_to_filters: [Country]
+    field: users.state
+  - name: City
+    title: City
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: false
+    required: false
+    ui_config:
+      type: advanced
+      display: popover
+    model: thelook_prod
+    explore: order_items
+    listens_to_filters: [State, Country]
+    field: users.city

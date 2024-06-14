@@ -96,8 +96,8 @@
     sorts: [events.count desc 1, users.traffic_source]
     limit: 20
     column_limit: 50
-    dynamic_fields: [{dimension: device_type, label: Device Type, expression: 'if(${events.os}="Macintosh",
-          "iOS", if(${events.os}="Windows","Desktop","Android"))', value_format: !!null '',
+    dynamic_fields: [{dimension: device_type, label: Device Type, expression: 'if(${events.browser}="Safari",
+          "iOS", if(${events.browser}="IE","Desktop","Android"))', value_format: !!null '',
         value_format_name: !!null '', _kind_hint: dimension, _type_hint: string}]
     show_value_labels: true
     font_size: 12
