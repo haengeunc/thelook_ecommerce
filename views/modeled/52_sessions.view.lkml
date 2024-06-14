@@ -107,7 +107,7 @@ view: sessions {
   }
 
   measure: percent_bounce_sessions {
-    label: "Count Bounce Sessions"
+    label: "Percent Bounce Sessions"
     type: number
     value_format_name: percent_2
     sql: 1.0 * ${count_bounce_sessions} / nullif(${count},0) ;;
