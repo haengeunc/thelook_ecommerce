@@ -1,5 +1,18 @@
 <h1><span style="color:#2d7eea">README - Your LookML Project</span></h1>
 
+<h2><span style="color:#2d7eea">Project Organization</span></h2>
+
+This project contains 2 models:
+
+**eCommerce [PROD]** - fully built out model with all fields, views, fact tables defined (includes all views in views/modeled folder)
+- Use for demos focusing on Gemini features (e.g. LookML Assistant, Looker Studio connector, Conversational Analytics)
+- All but the ncessary fields have been striped out of this model as less fields will yield better performance for Gemini
+- This is a better reflection of a new project, specifically where LookML Assistant will be most valuable
+
+**eCommerce [DEMO]** - skeleton project which has only the bare minimum defined (includes all views in views/demo folder)
+- Use for demos focusing advanced LookML design
+- Useful reference for how LookML should look like and also to validate the the data generation pipeline
+
 <h2><span style="color:#2d7eea">LookML Overview</span></h2>
 
 LookML is a data modeling language for describing dimensions, fields, aggregates and relationships based on SQL.
