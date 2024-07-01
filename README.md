@@ -4,12 +4,12 @@
 
 This project contains 2 models:
 
-**eCommerce [PROD]** - fully built out model with all fields, views, fact tables defined (includes all views in views/modeled folder)
+**eCommerce [DEMO]** - skeleton project which has only the bare minimum defined (includes all views in views/demo folder)
 - Use for demos focusing on Gemini features (e.g. LookML Assistant, Looker Studio connector, Conversational Analytics)
 - All but the ncessary fields have been striped out of this model as less fields will yield better performance for Gemini
 - This is a better reflection of a new project, specifically where LookML Assistant will be most valuable
 
-**eCommerce [DEMO]** - skeleton project which has only the bare minimum defined (includes all views in views/demo folder)
+**eCommerce [PROD]** - fully built out model with all fields, views, fact tables defined (includes all views in views/modeled folder)
 - Use for demos focusing advanced LookML design
 - Useful reference for how LookML should look like and also to validate the the data generation pipeline
 
