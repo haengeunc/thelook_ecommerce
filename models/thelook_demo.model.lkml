@@ -1,12 +1,12 @@
-connection: "sample_bigquery_connection"
+connection: "looker-private-demo"
 
 label: "eCommerce [DEMO]"
 
 include: "/views/demo/*.view" # include demo views
 
-explore: wide_table {
-  hidden: yes
-}
+# explore: wide_table {
+#   hidden: yes
+# }
 
 explore: order_items {
   label: "Orders, Items and Users"
