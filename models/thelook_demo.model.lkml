@@ -3,6 +3,8 @@ connection: "looker-private-demo"
 label: "eCommerce [DEMO]"
 
 include: "/views/demo/*.view" # include demo views
+# include: "/views/modeled/*.view" # include demo views
+
 
 # explore: wide_table {
 #   hidden: yes
