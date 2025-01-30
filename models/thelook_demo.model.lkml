@@ -1,4 +1,4 @@
-connection: "sample_bigquery_connection"
+connection: "default_bigquery_connection"
 
 label: "eCommerce [DEMO]"
 

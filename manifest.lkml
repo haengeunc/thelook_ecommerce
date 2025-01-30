@@ -1,6 +1,6 @@
 constant: bigquery_project {
-  value: "gemini-looker-demo-dataset"
+  value: "looker-private-demo"
 }
 constant: bigquery_dataset {
-  value: "thelook_ecommerce"
+  value: "ecomm"
 }

@@ -1,4 +1,4 @@
-connection: "sample_bigquery_connection"
+connection: "default_bigquery_connection"
 label: "eCommerce [PROD]"
 include: "/views/modeled/*.view" # include modeled views
 include: "/dashboards/*.dashboard.lookml"
