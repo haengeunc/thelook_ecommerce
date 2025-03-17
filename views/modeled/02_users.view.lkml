@@ -276,12 +276,12 @@ view: users {
     drill_fields: [detail*]
   }
 
-  measure: count_percent_of_total {
-    label: "Count (Percent of Total)"
-    type: percent_of_total
-    sql: ${count} ;;
-    drill_fields: [detail*]
-  }
+  # measure: count_percent_of_total {
+  #   label: "Count (Percent of Total)"
+  #   type: percent_of_total
+  #   sql: ${count} ;;
+  #   drill_fields: [detail*]
+  # }
 
   measure: average_age {
     label: "Average Age"
