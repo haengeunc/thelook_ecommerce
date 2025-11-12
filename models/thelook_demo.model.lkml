@@ -11,9 +11,7 @@ explore: wide_table {
 explore: order_items {
   label: "Orders, Items and Users"
   view_name: order_items
-  always_filter: {
-    filters: [users.age: ">=18", inventory_items.sold_date: "7 days"]
-  }
+
 
   join: inventory_items {
     type: full_outer
