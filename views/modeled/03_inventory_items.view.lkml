@@ -14,7 +14,6 @@ view: inventory_items {
     label: "Cost"
     type: number
     value_format_name: usd
-    value_format: "$#.00;($#.00)"
     sql: ${TABLE}.cost ;;
   }
 
