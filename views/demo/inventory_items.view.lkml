@@ -11,6 +11,7 @@ view: inventory_items {
     type: number
     sql: ${TABLE}.cost ;;
     value_format_name: usd
+    value_format: "$#.00;($#.00)"
   }
   dimension: created_date {
     type: date
