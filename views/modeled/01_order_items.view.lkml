@@ -308,16 +308,40 @@ view: order_items {
   }
 
   measure: total_sale_price {
-    label: "Total Sale Price"
-    description: "Total revenue from order items"
+    label: "Total Sale"
+    group_label: "Revenue & Margin"
+    description: "Total revenue from order items before subtracting any costs"
+    synonyms: ["revenue", "gross revenue", "gross sales", "total bookings", "turnover", "total sales", "topline"]
     type: sum
     value_format_name: usd
     sql: ${sale_price} ;;
     drill_fields: [detail*]
   }
 
+    measure: net_revenue {
+      type: sum
+      label: "Net Revenue"
+      group_label: "Revenue & Margin"
+      description: "Total recognized revenue for completed orders only. Excludes in-flight orders (Shipped, Processing) and lost orders (Cancelled, Returned)."
+      sql: CASE WHEN ${TABLE}.status = 'Complete' THEN ${sale_price} ELSE 0 END ;;
+      value_format_name: usd_0
+      drill_fields: [products.name, products.brand, products.category, net_revenue]
+      synonyms: ["net sales", "completed revenue", "recognized revenue", "actual revenue", "realized revenue", "closed revenue", "finalized sales"]
+    }
+
+
+    measure: average_order_value {
+      type: number
+      label: "Average Order Value (Gross)"
+      description: "Average gross revenue generated per placed order at checkout, includes all transactions includig cancellations or returns. Formula: Gross Revenue / Total Orders Placed."
+      sql: 1.0 * ${total_sale_price} / NULLIF(${order_count}, 0) ;;
+      value_format_name: usd
+      synonyms: ["aov", "gross aov", "average order value", "average basket size", "order size", "cart size", "ticket size", "mean order value", "average checkout"]
+    }
+
   measure: total_gross_margin {
     label: "Total Gross Margin"
+    group_label: "Revenue & Margin"
     description: "Total profit from order items"
     type: sum
     value_format_name: usd
@@ -346,6 +370,7 @@ view: order_items {
 
   measure: average_gross_margin {
     label: "Average Gross Margin"
+    group_label: "Revenue & Margin"
     description: "Average profit per order item"
     type: average
     value_format_name: usd
@@ -355,6 +380,7 @@ view: order_items {
 
   measure: total_gross_margin_percentage {
     label: "Total Gross Margin Percentage"
+    group_label: "Revenue & Margin"
     description: "Percentage profit per order item"
     type: number
     value_format_name: percent_2
@@ -369,6 +395,7 @@ view: order_items {
     sql: 1.0 * ${total_sale_price} / nullif(${users.count},0) ;;
     drill_fields: [detail*]
   }
+
 
 ########## Return Information ##########
 
