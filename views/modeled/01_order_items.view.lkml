@@ -392,7 +392,7 @@ view: order_items {
     description: "Average spend per user that has purchased"
     type: number
     value_format_name: usd
-    sql: 1.0 * ${total_sale_price} / nullif(${users.count},0) ;;
+    sql: 1.0 * ${total_sale_price} / nullif(${users.count_users},0) ;;
     drill_fields: [detail*]
   }
 

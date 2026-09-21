@@ -22,7 +22,7 @@
     model: thelook_prod
     explore: order_items
     type: single_value
-    fields: [users.count]
+    fields: [users.count_users]
     filters:
       users.created_date: 7 days
     limit: 500
@@ -310,7 +310,7 @@
     model: thelook_prod
     explore: order_items
     type: looker_line
-    fields: [order_items.months_since_signup, users.count, users.traffic_source]
+    fields: [order_items.months_since_signup, users.count_users, users.traffic_source]
     pivots: [users.traffic_source]
     filters:
       order_items.months_since_signup: "[0, 12]"
@@ -321,7 +321,7 @@
     dynamic_fields:
     - table_calculation: pct_cohort_still_active
       label: Pct Cohort Still Active
-      expression: "${users.count} / max(${users.count})"
+      expression: "${users.count_users} / max(${users.count_users})"
       value_format:
       value_format_name: percent_0
       _kind_hint: measure
@@ -378,7 +378,7 @@
     series_colors: {}
     swap_axes: false
     discontinuous_nulls: false
-    hidden_fields: [cumulative_lifetime_spend, order_items.total_sale_price, users.count]
+    hidden_fields: [cumulative_lifetime_spend, order_items.total_sale_price, users.count_users]
     defaults_version: 1
     note_state: collapsed
     note_display: below

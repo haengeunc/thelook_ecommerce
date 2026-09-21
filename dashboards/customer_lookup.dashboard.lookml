@@ -133,7 +133,7 @@
     model: thelook_prod
     explore: order_items
     type: looker_geo_coordinates
-    fields: [users.count, users.location]
+    fields: [users.count_users, users.location]
     sorts: [users.created_month desc]
     limit: 1
     column_limit: 50

@@ -46,6 +46,15 @@ view: user_order_facts {
     sql: ${TABLE}.latest_order ;;
   }
 
+  dimension: is_active_customer {
+    group_label: "Lifetime Profile"
+    description: "Any customers who placed order in the last 90 days"
+    synonyms: ["active customers", "live customers"]
+    type: yesno
+    sql: ${latest_order_date} >= DATE_ADD(CURRENT_DATE, INTERVAL -90 DAY) ;;
+  }
+
+
 
   dimension: days_as_customer {
     label: "Days As Customer"
@@ -66,12 +75,14 @@ view: user_order_facts {
 
   dimension: lifetime_orders {
     label: "Lifetime Orders"
+    group_label: "Lifetime Profile"
     type: number
     sql: ${TABLE}.lifetime_orders ;;
   }
 
   dimension: repeat_customer {
     label: "Repeat Customer"
+    group_label: "Lifetime Profile"
     description: "Lifetime Count of Orders > 1"
     type: yesno
     sql: ${lifetime_orders} > 1 ;;
@@ -79,6 +90,7 @@ view: user_order_facts {
 
   dimension: lifetime_orders_tier {
     label: "Lifetime Orders Tier"
+    group_label: "Lifetime Profile"
     type: tier
     tiers: [0, 1, 2, 3, 5, 10]
     sql: ${lifetime_orders} ;;
@@ -87,6 +99,7 @@ view: user_order_facts {
 
   measure: average_lifetime_orders {
     label: "Average Lifetime Orders"
+    group_label: "Lifetime Profile"
     type: average
     value_format_name: decimal_2
     sql: ${lifetime_orders} ;;
@@ -102,6 +115,7 @@ view: user_order_facts {
 
   dimension: lifetime_revenue {
     label: "Lifetime Revenue"
+    group_label: "Lifetime Profile"
     type: number
     value_format_name: usd
     sql: ${TABLE}.lifetime_revenue ;;
@@ -109,6 +123,7 @@ view: user_order_facts {
 
   dimension: lifetime_revenue_tier {
     label: "Lifetime Reveneue Tier"
+    group_label: "Lifetime Profile"
     type: tier
     tiers: [0, 25, 50, 100, 200, 500, 1000]
     sql: ${lifetime_revenue} ;;
@@ -117,6 +132,7 @@ view: user_order_facts {
 
   measure: average_lifetime_revenue {
     label: "Average Lifetime Margin"
+    group_label: "Lifetime Profile"
     type: average
     value_format_name: usd
     sql: ${lifetime_revenue} ;;
