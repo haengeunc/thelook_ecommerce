@@ -50,8 +50,8 @@
     model: thelook_prod
     explore: order_items
     type: single_value
-    fields: [users.count]
-    sorts: [users.count desc]
+    fields: [users.count_users]
+    sorts: [users.count_users desc]
     limit: 500
     font_size: medium
     text_color: black
@@ -486,7 +486,7 @@
     discontinuous_nulls: false
     show_null_points: true
     series_types:
-      users.count: column
+      users.count_users: column
     inner_radius: 50
     series_labels:
       'No': No Purchase

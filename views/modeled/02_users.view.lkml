@@ -6,6 +6,7 @@ view: users {
   dimension: id {
     label: "ID"
     primary_key: yes
+    hidden: yes
     type: number
     sql: ${TABLE}.id ;;
     tags: ["user_id"]
@@ -56,6 +57,7 @@ view: users {
 
   dimension: gender_short {
     label: "Gender Short"
+    hidden: yes
     sql: LOWER(SUBSTR(${gender},1,1)) ;;
   }
 
@@ -165,12 +167,14 @@ view: users {
 
   dimension: city {
     label: "City"
+    group_label: "Location"
     sql: ${TABLE}.city ;;
     drill_fields: [zip]
   }
 
   dimension: state {
     label: "State"
+    group_label: "Location"
     sql: ${TABLE}.state ;;
     map_layer_name: us_states
     drill_fields: [zip, city]
@@ -178,12 +182,14 @@ view: users {
 
   dimension: zip {
     label: "Zip"
+    group_label: "Location"
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
 
   dimension: uk_postcode {
     label: "UK Postcode"
+    group_label: "Location"
     sql: case when ${TABLE}.country = 'UK' then regexp_replace(${zip}, '[0-9]', '') else null end;;
     map_layer_name: uk_postcode_areas
     drill_fields: [city, zip]
@@ -191,6 +197,7 @@ view: users {
 
   dimension: country {
     label: "Country"
+    group_label: "Location"
     map_layer_name: countries
     drill_fields: [state, city]
     sql: ${TABLE}.country ;;
@@ -198,6 +205,7 @@ view: users {
 
   dimension: location {
     label: "Location"
+    group_label: "Location"
     type: location
     sql_latitude: ${TABLE}.latitude ;;
     sql_longitude: ${TABLE}.longitude ;;
@@ -205,18 +213,21 @@ view: users {
 
   dimension: approx_latitude {
     label: "Approx Latitude"
+    group_label: "Location"
     type: number
     sql: round(${TABLE}.latitude,1) ;;
   }
 
   dimension: approx_longitude {
     label: "Approx Longitude"
+    group_label: "Location"
     type: number
     sql:round(${TABLE}.longitude,1) ;;
   }
 
   dimension: approx_location {
     label: "Approx Location"
+    group_label: "Location"
     type: location
     drill_fields: [location]
     sql_latitude: ${approx_latitude} ;;
@@ -270,16 +281,17 @@ view: users {
 
   ## MEASURES ##
 
-  measure: count {
-    label: "Count"
-    type: count
+  measure: count_users {
+    label: "Count Users"
+    type: count_distinct
+    sql: ${id} ;;
     drill_fields: [detail*]
   }
 
   measure: count_percent_of_total {
     label: "Count (Percent of Total)"
     type: percent_of_total
-    sql: ${count} ;;
+    sql: ${count_users} ;;
     drill_fields: [detail*]
   }
 

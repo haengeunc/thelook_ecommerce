@@ -40,9 +40,9 @@
     model: thelook_prod
     explore: order_items
     type: single_value
-    fields: [users.count]
+    fields: [users.count_users]
     filters: {}
-    sorts: [users.count desc]
+    sorts: [users.count_users desc]
     limit: 500
     font_size: medium
     text_color: black
