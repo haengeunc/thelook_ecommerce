@@ -332,7 +332,9 @@ view: order_items {
     measure: dynamic_revenue {
       type: number
       label: "{% if _user_attributes['department'] == 'sales' %}Total Bookings (Sales){% else %}Recognised Net Revenue (Finance){% endif %}"
-      description: "{% if _user_attributes['department'] == 'sales' %}Gross booking value across all orders, regardless of return/cancellation status{% else %}Recognised completed revenue excluding shipped, processing, cancelled and returned items{% endif %}"
+      description: "Use this for persona based revenue {% if _user_attributes['department'] == 'sales' %}Gross booking value across all orders, regardless of return/cancellation status{% else %}Recognised completed revenue excluding shipped, processing, cancelled and returned items{% endif %}"
+      synonyms: ["department revenue", "role based revenue", "persona revenue"]
+      value_format_name: usd
       sql:
           {% if _user_attributes['department'] == 'sales' %}
           ${total_sale_price}
