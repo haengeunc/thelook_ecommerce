@@ -10,6 +10,10 @@ datagroup: thelook_prod_etl {
 
 persist_with: thelook_prod_etl
 
+
+#business fiscal calendar starts in Feb
+fiscal_month_offset: 1
+
 explore: users {
   hidden: yes
   join: user_order_facts {
