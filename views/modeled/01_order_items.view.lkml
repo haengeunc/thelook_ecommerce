@@ -192,7 +192,7 @@ view: order_items {
   dimension_group: created {
     description: "Date and time the item was added to the order"
     type: time
-    timeframes: [time, hour, date, week, month, year, hour_of_day, day_of_week, day_of_month, month_num, raw, week_of_year,month_name]
+    timeframes: [raw, time, hour, date, week, month, year, hour_of_day, day_of_week, day_of_month, month_num, month_name, fiscal_quarter,  fiscal_year]
     sql: ${TABLE}.created_at ;;
   }
 
@@ -327,6 +327,20 @@ view: order_items {
       value_format_name: usd_0
       drill_fields: [products.name, products.brand, products.category, net_revenue]
       synonyms: ["net sales", "completed revenue", "recognized revenue", "actual revenue", "realized revenue", "closed revenue", "finalized sales"]
+    }
+
+    measure: dynamic_revenue {
+      type: number
+      label: "{% if _user_attributes['department'] == 'sales' %}Total Bookings (Sales){% else %}Recognised Net Revenue (Finance){% endif %}"
+      description: "Use this for persona based revenue {% if _user_attributes['department'] == 'sales' %}Gross booking value across all orders, regardless of return/cancellation status{% else %}Recognised completed revenue excluding shipped, processing, cancelled and returned items{% endif %}"
+      synonyms: ["department revenue", "role based revenue", "persona revenue"]
+      value_format_name: usd
+      sql:
+          {% if _user_attributes['department'] == 'sales' %}
+          ${total_sale_price}
+          {% else %}
+          ${net_revenue}
+          {% endif %} ;;
     }
 
 
