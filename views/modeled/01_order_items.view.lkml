@@ -247,13 +247,30 @@ view: order_items {
        ;;
   }
 
+    dimension: order_to_ship_time {
+      label: "Order-to-ship Time"
+      description: "Number of days between the shipped and created date. Exact duration of time from when a customer places an order to when that order is officially handed over to the shipping carrier"
+      type: number
+      sql: TIMESTAMP_DIFF(${shipped_raw}, ${created_raw}, DAY)*1.0 ;;
+      synonyms: ["shipping latency", "fulfillment lead time", "handling time", "lead time to ship"]
+    }
+
 
   dimension: shipping_time {
     label: "Shipping Time"
     description: "Number of days between the delivery date and shipping date"
     type: number
     sql: TIMESTAMP_DIFF(${delivered_raw}, ${shipped_raw}, DAY)*1.0 ;;
+    synonyms: ["Transit Time", "Carrier Speed", "Transit Duration"]
   }
+
+    dimension: delivery_time {
+      label: "Delivery Time"
+      description: "Number of days to fulfill order i.e. days between the delivered date and the order created date"
+      type: number
+      sql: TIMESTAMP_DIFF(${delivered_raw}, ${created_raw}, DAY)*1.0 ;;
+      synonyms: ["Fulfilment duration", "Fulfillment Days", "Days taken to fulfill order"]
+    }
 
 
   measure: average_days_to_process {
@@ -266,11 +283,27 @@ view: order_items {
 
   measure: average_shipping_time {
     label: "Average Shipping Time"
-    description: "Average delivery time after shipping"
+    description: "Average transit time after shipping"
     type: average
     value_format_name: decimal_2
     sql: ${shipping_time} ;;
   }
+
+    measure: average_delivery_time {
+      label: "Average Delivery Time"
+      description: "Average fulfillment time after order placed"
+      type: average
+      value_format_name: decimal_2
+      sql: ${delivery_time} ;;
+    }
+
+    measure: average_order_to_ship_time {
+      label: "Average Order-to-ship Time"
+      description: "Average handling time after order placed befor the shipping"
+      type: average
+      value_format_name: decimal_2
+      sql: ${order_to_ship_time} ;;
+    }
 
 ########## Financial Information ##########
 
