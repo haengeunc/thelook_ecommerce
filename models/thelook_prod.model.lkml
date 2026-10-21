@@ -10,19 +10,11 @@ datagroup: thelook_prod_etl {
 
 persist_with: thelook_prod_etl
 
-
 #business fiscal calendar starts in Feb
 fiscal_month_offset: 1
 
-explore: users {
-  hidden: yes
-  join: user_order_facts {
-    type: left_outer
-    sql_on: ${users.id} = ${user_order_facts.user_id} ;;
-    relationship: one_to_one
-  }
-}
 
+#joins defined in explores
 explore: order_items {
   label: "(1) Orders, Items and Users"
   view_name: order_items
@@ -126,6 +118,8 @@ explore: events {
     view_label: "Users"
   }
 }
+
+
 
 explore: sessions {
   label: "(3) Web Session Data"
@@ -273,5 +267,14 @@ explore: inventory_snapshot {
     type: left_outer
     sql_on: ${products.distribution_center_id}=${distribution_centers.id} ;;
     relationship: many_to_one
+  }
+}
+
+explore: users {
+  hidden: yes
+  join: user_order_facts {
+    type: left_outer
+    sql_on: ${users.id} = ${user_order_facts.user_id} ;;
+    relationship: one_to_one
   }
 }
