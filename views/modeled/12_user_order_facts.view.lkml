@@ -56,6 +56,47 @@ view: user_order_facts {
 
 
 
+  dimension: days_to_first_order {
+    label: "Days to First Order (from Signup)"
+    group_label: "Lifetime Profile"
+    description: "Days between user account registration (users.created_raw) and their first order (first_order)"
+    synonyms: ["time to first purchase", "signup to first order days", "onboarding conversion days"]
+    type: number
+    sql: TIMESTAMP_DIFF(${TABLE}.first_order, ${users.created_raw}, DAY) ;;
+  }
+
+  dimension: purchased_within_30d_of_signup {
+    label: "Purchased Within 30 Days of Signup"
+    group_label: "Lifetime Profile"
+    description: "Yes if the user placed their first order within 30 days of account registration"
+    synonyms: ["new user 30d conversion", "converted within 30 days of registering"]
+    type: yesno
+    sql: TIMESTAMP_DIFF(${TABLE}.first_order, ${users.created_raw}, DAY) BETWEEN 0 AND 30 ;;
+  }
+
+  measure: count_users_purchased_within_30d {
+    label: "Users Purchased Within 30 Days of Signup"
+    group_label: "Lifetime Profile"
+    description: "Count of registered users who placed their first purchase within 30 days of registering"
+    synonyms: ["new users converted in 30 days", "30 day first purchase users"]
+    type: count_distinct
+    sql: ${users.id} ;;
+    filters: {
+      field: purchased_within_30d_of_signup
+      value: "Yes"
+    }
+  }
+
+  measure: first_purchase_within_30d_rate {
+    label: "First Purchase Within 30 Days Rate"
+    group_label: "Lifetime Profile"
+    description: "Percentage of registered users who placed a first purchase within 30 days of registering"
+    synonyms: ["new user 30-day conversion rate", "30d signup to purchase rate", "percentage of new users purchasing within 30 days"]
+    type: number
+    value_format_name: percent_1
+    sql: 1.0 * ${count_users_purchased_within_30d} / NULLIF(${users.count_users}, 0) ;;
+  }
+
   dimension: days_as_customer {
     label: "Days As Customer"
     description: "Days between first and latest order"

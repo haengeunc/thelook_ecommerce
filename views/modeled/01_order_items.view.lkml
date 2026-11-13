@@ -362,6 +362,31 @@ view: order_items {
       synonyms: ["net sales", "completed revenue", "recognized revenue", "actual revenue", "realized revenue", "closed revenue", "finalized sales"]
     }
 
+  measure: in_flight_revenue {
+    type: sum
+    label: "In-Flight Revenue"
+    group_label: "Revenue & Margin"
+    description: "Total revenue from orders currently in-flight (Processing or Shipped status)"
+    synonyms: ["in-flight sales", "pending revenue", "unrecognized revenue", "pipeline revenue", "orders in flight"]
+    sql: CASE WHEN ${TABLE}.status IN ('Processing', 'Shipped') THEN ${sale_price} ELSE 0 END ;;
+    value_format_name: usd
+    drill_fields: [detail*]
+  }
+
+  measure: in_flight_order_count {
+    view_label: "Orders"
+    label: "In-Flight Order Count"
+    description: "Number of distinct orders currently in-flight (Processing or Shipped status)"
+    synonyms: ["in-flight orders", "open orders", "pending orders"]
+    type: count_distinct
+    sql: ${order_id} ;;
+    filters: {
+      field: status
+      value: "Processing, Shipped"
+    }
+    drill_fields: [detail*]
+  }
+
     measure: dynamic_revenue {
       type: number
       label: "{% if _user_attributes['department'] == 'sales' %}Total Bookings (Sales){% else %}Recognised Net Revenue (Finance){% endif %}"

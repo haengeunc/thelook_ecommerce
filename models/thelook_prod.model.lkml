@@ -278,3 +278,22 @@ explore: users {
     relationship: one_to_one
   }
 }
+
+# Curated Agent-Specific Explore for Conversational Analytics
+explore: customer_orders_ca {
+  label: "(CA) Commercial Finance & Customer Orders"
+  description: "Curated Conversational Analytics Explore extending order_items with clean commercial finance, fiscal calendar (Feb-Jan), in-flight revenue, and 30-day new-user conversion metrics"
+  extends: [order_items]
+  view_name: order_items
+  fields: [
+    ALL_FIELDS*,
+    -order_items.order_id_no_actions,
+    -order_items.count_last_28d,
+    -order_items.days_since_sold,
+    -users.ssn,
+    -users.ssn_last_4,
+    -users.promo_email,
+    -users.user_image,
+    -users.history
+  ]
+}
