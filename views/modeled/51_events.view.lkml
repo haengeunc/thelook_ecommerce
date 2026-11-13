@@ -89,6 +89,7 @@ view: events {
 
   dimension: event_type {
     label: "Event Type"
+    description: "Clickstream interaction type: product, department, cart, purchase, cancel, or home"
     sql: ${TABLE}.event_type ;;
     tags: ["mp_event_name"]
   }
@@ -153,12 +154,14 @@ view: events {
 
   measure: count {
     label: "Count"
+    description: "Total web clickstream events recorded"
     type: count
     drill_fields: [simple_page_info*]
   }
 
   measure: sessions_count {
     label: "Sessions Count"
+    description: "Count of distinct web browsing sessions containing matching events"
     type: count_distinct
     sql: ${session_id} ;;
   }

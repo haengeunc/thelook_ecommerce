@@ -25,6 +25,7 @@ view: sessions {
 
   measure: count {
     label: "Count"
+    description: "Total web sessions"
     type: count
     drill_fields: [detail*]
   }
@@ -260,6 +261,8 @@ view: sessions {
 
   measure: cart_to_checkout_conversion {
     view_label: "Funnel View"
+    label: "Cart to Checkout Conversion Rate"
+    description: "Percentage of sessions with an Add to Cart event that completed a Purchase"
     type: number
     value_format_name: percent_2
     sql: 1.0 * ${count_purchase} / nullif(${count_cart_or_later},0) ;;
@@ -267,6 +270,8 @@ view: sessions {
 
   measure: overall_conversion {
     view_label: "Funnel View"
+    label: "Overall Session Conversion Rate"
+    description: "End-to-end session conversion rate: sessions with a Purchase divided by all sessions"
     type: number
     value_format_name: percent_2
     sql: 1.0 * ${count_purchase} / nullif(${count},0) ;;

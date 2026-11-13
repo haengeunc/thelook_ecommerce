@@ -12,18 +12,21 @@ view: products {
 
   dimension: category {
     label: "Category"
+    description: "Product merchandising category (e.g., Jeans, Outerwear & Coats, Sweaters, Active)"
     sql: TRIM(${TABLE}.category) ;;
     drill_fields: [department, brand, item_name]
   }
 
   dimension: item_name {
     label: "Item Name"
+    description: "Full retail product title"
     sql: TRIM(${TABLE}.name) ;;
     drill_fields: [id]
   }
 
   dimension: brand {
     label: "Brand"
+    description: "Product manufacturer or fashion brand name"
     sql: TRIM(${TABLE}.brand) ;;
     drill_fields: [item_name]
     link: {
