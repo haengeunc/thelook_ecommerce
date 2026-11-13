@@ -282,9 +282,19 @@ explore: users {
 # Curated Agent-Specific Explore for Conversational Analytics
 explore: customer_orders_ca {
   label: "(CA) Commercial Finance & Customer Orders"
-  description: "Curated Conversational Analytics Explore extending order_items with clean commercial finance, fiscal calendar (Feb-Jan), in-flight revenue, and 30-day new-user conversion metrics"
+  description: "Curated Conversational Analytics Explore extending order_items with a 2-year rolling window, pre- excluded unsold inventory rows, fiscal calendar (Feb-Jan), in-flight revenue, and 30-day new-user conversion metrics"
   extends: [order_items]
   view_name: order_items
+
+  # Bespoke SQL guardrail: exclude 307k unsold inventory_items rows (order_items.id IS NOT NULL)
+  sql_always_where: ${order_items.id} IS NOT NULL ;;
+
+  # Default to last 2 years (users or the CA agent can override when needed)
+  conditionally_filter: {
+    filters: [order_items.created_date: "2 years"]
+    unless: [order_items.created_year, order_items.created_fiscal_year, order_items.created_month, order_items.order_id, users.id]
+  }
+
   fields: [
     ALL_FIELDS*,
     -order_items.order_id_no_actions,
